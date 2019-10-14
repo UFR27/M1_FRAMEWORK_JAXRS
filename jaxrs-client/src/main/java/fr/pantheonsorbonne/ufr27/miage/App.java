@@ -14,9 +14,11 @@ import javax.ws.rs.core.Response;
 public class App {
 	public static void main(String[] args) {
 		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client.target("http://localhost:8080/AN");
-		WebTarget anWebTarget = webTarget.path("01FEB").path("BDX").path("CDG").path("1400");
 		
+		
+		
+		WebTarget webTarget = client.target("http://localhost:8080/");
+		WebTarget anWebTarget = webTarget.path("01FEB").path("BDX").path("CDG").path("1400");
 		Response resp = anWebTarget.request(MediaType.APPLICATION_XML).get();
 		AvailabilityNeutralResponses anResponses = (AvailabilityNeutralResponses) resp.readEntity(AvailabilityNeutralResponses.class);
 		
