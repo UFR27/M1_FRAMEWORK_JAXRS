@@ -27,6 +27,9 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.sun.research.ws.wadl.Option;
+
 import java.text.DateFormatSymbols;
 import fr.pantheonsorbonne.ufr27.miage.AvailabilityNeutralResponse;
 import fr.pantheonsorbonne.ufr27.miage.AvailabilityNeutralResponses;
@@ -86,12 +89,15 @@ public class AvailabilityEndpoint {
 
 				String dom = matcher.group(1);
 				String moy = matcher.group(2);
-				int monthIndex = IntStream.range(0, shortMonthes.length)
-						.filter(i -> shortMonthes[i].toLowerCase().equals(moy.toLowerCase())).findFirst().orElseThrow();
+				OptionalInt monthIndex = IntStream.range(0, shortMonthes.length)
+						.filter(i -> shortMonthes[i].toLowerCase().equals(moy.toLowerCase())).findFirst();
+				if (!monthIndex.isPresent()) {
+					throw new DateParseException();
+				}
 				int day = Integer.valueOf(dom);
 
 				Calendar cal = Calendar.getInstance();
-				cal.set(cal.get(Calendar.YEAR), monthIndex, day);
+				cal.set(cal.get(Calendar.YEAR), monthIndex.getAsInt(), day);
 				return cal.getTime();
 			}
 			throw new DateParseException();
