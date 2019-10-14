@@ -15,13 +15,14 @@ public class App {
 	public static void main(String[] args) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://localhost:8080/AN");
-		WebTarget anWebTarget = webTarget.path("1").path("2").path("3").path("4");
+		WebTarget anWebTarget = webTarget.path("01FEB").path("BDX").path("CDG").path("1400");
 		
 		Response resp = anWebTarget.request(MediaType.APPLICATION_XML).get();
-		AvailabilityNeutralResponse anResponse = (AvailabilityNeutralResponse) resp.readEntity(AvailabilityNeutralResponse.class);
+		AvailabilityNeutralResponses anResponses = (AvailabilityNeutralResponses) resp.readEntity(AvailabilityNeutralResponses.class);
 		
 		
-		System.out.println(anResponse.toString());
+		
+		System.out.println(anResponses.toString());
 				
 	}
 }
