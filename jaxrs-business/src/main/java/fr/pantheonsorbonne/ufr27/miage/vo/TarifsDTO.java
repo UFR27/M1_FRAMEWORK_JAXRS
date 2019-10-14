@@ -5,6 +5,14 @@ import java.util.Random;
 public class TarifsDTO {
 	String klass;
 
+	public String getKlass() {
+		return klass;
+	}
+
+	public void setKlass(String klass) {
+		this.klass = klass;
+	}
+
 	public enum Klasses {
 		J, Y, M
 	}

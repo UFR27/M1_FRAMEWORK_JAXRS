@@ -21,21 +21,22 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.sun.research.ws.wadl.Option;
 
+import fr.pantheonsorbonne.ufr27.miage.ASs;
+import fr.pantheonsorbonne.ufr27.miage.ASs.AS;
 import fr.pantheonsorbonne.ufr27.miage.AvailabilityNeutralResponse;
 import fr.pantheonsorbonne.ufr27.miage.AvailabilityNeutralResponses;
+import fr.pantheonsorbonne.ufr27.miage.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.business.AmadeusBusiness;
 import fr.pantheonsorbonne.ufr27.miage.exceptions.DateParseException;
 import fr.pantheonsorbonne.ufr27.miage.utils.Utils;
 import fr.pantheonsorbonne.ufr27.miage.vo.ANFlightDTO;
+import fr.pantheonsorbonne.ufr27.miage.vo.TarifsDTO;
 
 @Path("AN")
 public class AvailabilityEndpoint {
 
 	@Inject
 	AmadeusBusiness business;
-
-	
-	
 
 	@GET
 	@Path("{date}/{org}/{dest}/{time}")
@@ -52,19 +53,30 @@ public class AvailabilityEndpoint {
 			AvailabilityNeutralResponse resp = Utils.FACTORY.createAvailabilityNeutralResponse();
 
 			resp.setDestination(dto.getArrival());
-			resp.setOrigin(dto.getDeparture());
+			resp.setOrigine(dto.getDeparture());
 
 			XMLGregorianCalendar arrival = Utils.Date2XMLGregorianCalendar(dto.getArrivalTime());
-			resp.setArrivalTime(arrival);
+			resp.setHeureArrivee(arrival);
 
 			XMLGregorianCalendar dep = Utils.Date2XMLGregorianCalendar(dto.getDepartureTime());
-			resp.setDepartureTime(dep);
+			resp.setHeureDepart(dep);
 
 			Duration duration = Utils.getDuration(dto.getArrivalTime(), dto.getDepartureTime());
-			resp.setDuration(duration);
+			resp.setDureeVol(duration.toString());
 
-			resp.setIdCompagnie(dto.getCompany());
-			resp.setIdVol(BigInteger.valueOf(Long.valueOf(dto.getId())));
+			resp.setIdentifiantCompanie(dto.getCompany());
+			resp.setIdentifiantVol("" + BigInteger.valueOf(Long.valueOf(dto.getId())));
+
+			ASs ass = new ObjectFactory().createASs();
+
+			for (TarifsDTO tarif : dto.getTarifs()) {
+				AS as = new ObjectFactory().createASsAS();
+				as.setKlass(tarif.getKlass());
+				as.setSeat(tarif.getAvailability());
+				ass.getAS().add(as);
+			}
+
+			resp.setNbPlacesRestantes(ass);
 
 			responses.getResponses().add(resp);
 

@@ -23,6 +23,7 @@ import com.google.common.io.BaseEncoding;
 import fr.pantheonsorbonne.ufr27.miage.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.exceptions.DateParseException;
 
+
 public abstract class Utils {
 	private static final Random random = new Random(); // or SecureRandom
 	
