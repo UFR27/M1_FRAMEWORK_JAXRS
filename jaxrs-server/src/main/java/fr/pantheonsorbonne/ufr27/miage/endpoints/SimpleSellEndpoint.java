@@ -3,14 +3,17 @@ package fr.pantheonsorbonne.ufr27.miage.endpoints;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import fr.pantheonsorbonne.ufr27.miage.ASs;
 import fr.pantheonsorbonne.ufr27.miage.ASs.AS;
 import fr.pantheonsorbonne.ufr27.miage.AvailabilityNeutralResponse;
+import fr.pantheonsorbonne.ufr27.miage.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.business.AmadeusBusiness;
 import fr.pantheonsorbonne.ufr27.miage.business.AmadeusBusinessRandomImpl;
 
@@ -20,9 +23,11 @@ public class SimpleSellEndpoint {
 	@Inject
 	AmadeusBusiness business;
 
-	@GET
+
+
+	@POST
 	@Consumes(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response getSS(AvailabilityNeutralResponse anResp) {
+	public Response postSS(AvailabilityNeutralResponse anResp) {
 
 		AS as = anResp.getNbPlacesRestantes().getAS().get(0);
 		if (anResp.getNbPlacesRestantes().getAS().size() > 1) {
@@ -35,7 +40,6 @@ public class SimpleSellEndpoint {
 		} else {
 			return Response.status(410, "Seats are not available anymore").build();
 		}
-
 	}
 
 }
