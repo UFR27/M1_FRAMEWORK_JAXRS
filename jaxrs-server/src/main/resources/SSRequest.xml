@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AvailabilityNeutralResponse>
+    <identifiantCompanie>AF</identifiantCompanie>
+    <identifiantVol>123</identifiantVol>
+    <nbPlacesRestantes>
+        <AS>
+            <klass>M</klass>
+            <seat>0</seat>
+        </AS>
+    </nbPlacesRestantes>
+    <origine>BDX</origine>
+    <destination>PAR</destination>
+    <heureDepart>2001-12-31T12:00:00</heureDepart>
+  <heureArrivee>2001-12-31T12:00:00</heureArrivee>
+    <DureeVol>2H</DureeVol>
+</AvailabilityNeutralResponse>
