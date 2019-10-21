@@ -10,7 +10,8 @@ import java.util.Random;
 
 import fr.pantheonsorbonne.ufr27.miage.vo.ANFlightDTO;
 
-public class AmadeusBusinessImpl implements AmadeusBusiness {
+
+public class AmadeusBusinessRandomImpl implements AmadeusBusiness {
 
 	Random ran = new Random();
 
@@ -31,6 +32,11 @@ public class AmadeusBusinessImpl implements AmadeusBusiness {
 
 		return new BigDecimal(100 + (ran.nextDouble() * 1000) % 500).setScale(2, RoundingMode.CEILING);
 
+	}
+
+	@Override
+	public boolean available(String departure, String arrival, Date date, String klass, int nbSeat) {
+		return ran.nextDouble()<0.90;
 	}
 
 }

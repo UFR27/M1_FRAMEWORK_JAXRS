@@ -46,6 +46,28 @@ public class AvailabilityEndpoint {
 			@PathParam("dest") String dest, //
 			@PathParam("time") String time) throws JAXBException, DateParseException {
 
+		AvailabilityNeutralResponses responses = getANOpt(date, org, dest, time);
+
+		return responses;
+
+	}
+	
+	@GET
+	@Path("{date}/{org}/{dest}")
+	@Produces(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public AvailabilityNeutralResponses getANWithoutTime(@PathParam("date") String date, //
+			@PathParam("org") String org, //
+			@PathParam("dest") String dest //
+			) throws JAXBException, DateParseException {
+
+		AvailabilityNeutralResponses responses = getANOpt(date, org, dest, "1200");
+
+		return responses;
+
+	}
+
+	private AvailabilityNeutralResponses getANOpt(String date, String org, String dest, String time)
+			throws DateParseException {
 		Date theDate = Utils.parseDate(date, time);
 
 		AvailabilityNeutralResponses responses = Utils.FACTORY.createAvailabilityNeutralResponses();
@@ -81,9 +103,7 @@ public class AvailabilityEndpoint {
 			responses.getResponses().add(resp);
 
 		}
-
 		return responses;
-
 	}
 
 }
