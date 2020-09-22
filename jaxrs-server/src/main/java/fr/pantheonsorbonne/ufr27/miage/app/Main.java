@@ -11,8 +11,6 @@ import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import fr.pantheonsorbonne.ufr27.miage.business.AmadeusBusiness;
-import fr.pantheonsorbonne.ufr27.miage.business.AmadeusBusinessImpl;
 import fr.pantheonsorbonne.ufr27.miage.exceptions.DateParseException;
 import fr.pantheonsorbonne.ufr27.miage.exceptions.ExceptionMapper;
 
@@ -35,7 +33,7 @@ public class Main {
 
 					@Override
 					protected void configure() {
-						bind(AmadeusBusinessImpl.class).to(AmadeusBusiness.class);
+						//bind(AmadeusBusinessImpl.class).to(AmadeusBusiness.class);
 
 					}
 
